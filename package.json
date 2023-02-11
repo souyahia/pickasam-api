@@ -1,7 +1,7 @@
 {
-  "name": "node-ts-template",
+  "name": "pickasam-api",
   "version": "0.0.1",
-  "description": "NodeJs TypeScript project template.",
+  "description": "API for my dating app picture elo ranking project",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "author": {
@@ -72,10 +72,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/souyahia/node-ts-template.git"
+    "url": "https://github.com/souyahia/pickasam-api.git"
   },
   "bugs": {
-    "url": "https://github.com/souyahia/node-ts-template/issues"
+    "url": "https://github.com/souyahia/pickasam-api/issues"
   },
-  "homepage": "https://github.com/souyahia/node-ts-template#readme"
+  "homepage": "https://github.com/souyahia/pickasam-api#readme"
 }

@@ -30,7 +30,7 @@ if (!['trace', 'debug', 'info', 'warn', 'error', 'fatal'].includes(level)) {
 }
 
 export const logger = createLogger({
-  name: 'express-ts-template-logger',
+  name: 'pickasam-api',
   level: level as LogLevelString,
   streams: [
     {
