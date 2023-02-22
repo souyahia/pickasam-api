@@ -1,1 +1,1 @@
-export * as pingController from './ping.controller';
+export { PingController } from './ping.controller';

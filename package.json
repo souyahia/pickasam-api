@@ -17,10 +17,9 @@
   "license": "MIT",
   "scripts": {
     "clean": "rimraf dist && mkdirp dist",
+    "clean:db": "rimraf db/data",
     "build": "npm run clean && tsc -p tsconfig.build.json",
     "start": "node dist/index.js",
-    "test": "jest",
-    "test:coverage": "jest --coverage",
     "prettier": "prettier --check ./src ./test",
     "prettier:fix": "prettier --write ./src ./test",
     "eslint": "eslint --format=pretty ./src ./test",
@@ -30,12 +29,17 @@
   },
   "prettier": "@souyahia/prettier-config",
   "dependencies": {
+    "@types/dotenv": "^8.2.0",
     "body-parser": "^1.20.1",
     "bunyan": "^1.8.15",
     "bunyan-debug-stream": "^3.1.0",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-validator": "^6.14.3",
-    "nconf": "^0.12.0"
+    "mysql2": "^3.1.2",
+    "nconf": "^0.12.0",
+    "sequelize": "^6.28.0",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@souyahia/eslint-config-base": "^1.0.0",
@@ -50,6 +54,7 @@
     "@types/nconf": "^0.10.3",
     "@types/node": "^18.0.6",
     "@types/supertest": "^2.0.12",
+    "@types/uuid": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^5.51.0",
     "@typescript-eslint/parser": "^5.51.0",
     "eslint": "^8.33.0",

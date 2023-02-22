@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { NotFoundResponse } from './not-found.types';
 
-export function notFound(
+function notFound(
   req: Request<never, NotFoundResponse>,
   res: Response<NotFoundResponse>,
 ): void {
@@ -11,3 +11,7 @@ export function notFound(
 
   res.status(404).json(notFoundResponse);
 }
+
+export const NotFoundController = {
+  notFound,
+};

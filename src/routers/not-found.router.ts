@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { notFoundController } from '../controllers';
+import { NotFoundController } from '../controllers';
 
-const notFoundRouter = Router();
+const NotFoundRouter = Router();
 
-notFoundRouter.all('*', notFoundController.notFound);
+NotFoundRouter.all('*', NotFoundController.notFound);
 
-export { notFoundRouter };
+export { NotFoundRouter };

@@ -1,0 +1,20 @@
+version: '3.3'
+services:
+  pickasam_db:
+    platform: linux/x86_64
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'pickasam'
+      MYSQL_USER: 'user_dev'
+      MYSQL_PASSWORD: 'password_dev'
+      MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - ./data:/var/lib/mysql
+      - ./files:/var/lib/mysql-files
+      - ./scripts/schema.sql:/docker-entrypoint-initdb.d/1.sql
+      - ./scripts/data.sql:/docker-entrypoint-initdb.d/2.sql

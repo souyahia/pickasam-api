@@ -1,2 +1,3 @@
-export { pingController } from './ping';
-export { notFoundController } from './not-found';
+export { PingController } from './ping';
+export { NotFoundController } from './not-found';
+export { MatchController } from './match';

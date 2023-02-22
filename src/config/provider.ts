@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
+import * as dotenv from 'dotenv';
 import nconf from 'nconf';
 import { defaults } from './defaults';
 
+dotenv.config();
 const provider = nconf.env('__').defaults(defaults);
 
 function getValue(key: string): unknown {
@@ -18,6 +20,22 @@ export function getString(key: string): string {
     throw new Error(`Invalid value for configuration option ${key} : ${value} (expected string)`);
   }
   return value;
+}
+
+export function getEnum<T extends string | number | boolean>(
+  key: string,
+  enumValues: T[] | { [key: string]: T },
+): T {
+  const values = Array.isArray(enumValues) ? enumValues : Object.values(enumValues);
+  const value = getValue(key);
+  if (!values.includes(value as T)) {
+    throw new Error(
+      `Invalid value for configuration option ${key} : possible values are ${JSON.stringify(
+        values,
+      )}`,
+    );
+  }
+  return value as T;
 }
 
 export function getBoolean(key: string): boolean {

@@ -1,7 +1,7 @@
 import { join } from 'path';
-import { createLogger, LogLevelString, Serializers } from 'bunyan';
+import { createLogger, Serializers } from 'bunyan';
 import bunyanDebugStream, { BunyanDebugStreamOptions } from 'bunyan-debug-stream';
-import { Config } from '../config';
+import { Config, LogStream } from '../config';
 
 type BunyanDebugStreamTypeWrapper = ((
   options: BunyanDebugStreamOptions,
@@ -9,32 +9,26 @@ type BunyanDebugStreamTypeWrapper = ((
 
 const bds = bunyanDebugStream as BunyanDebugStreamTypeWrapper;
 
-function getStream(key: string): NodeJS.WritableStream {
+function getStream(key: LogStream): NodeJS.WritableStream {
   switch (key) {
-    case 'stdout':
+    case LogStream.STDOUT:
       return process.stdout;
-    case 'bunyan-debug-stream':
+    case LogStream.BUNYAN_DEBUG_STREAM:
       return bds({
         basepath: join(__dirname, '..', '..'),
         forceColor: true,
       });
     default:
-      throw new Error(`Unknown logger stream : ${key}`);
+      throw new Error(`Unknown logger stream type.`);
   }
-}
-
-const level = Config.Logger.Level;
-
-if (!['trace', 'debug', 'info', 'warn', 'error', 'fatal'].includes(level)) {
-  throw new Error(`Unknown logger level : ${level}`);
 }
 
 export const logger = createLogger({
   name: 'pickasam-api',
-  level: level as LogLevelString,
+  level: Config.Logger.Level,
   streams: [
     {
-      level: level as LogLevelString,
+      level: Config.Logger.Level,
       stream: getStream(Config.Logger.Stream),
     },
   ],

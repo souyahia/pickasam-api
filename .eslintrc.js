@@ -9,5 +9,16 @@ module.exports = {
   },
   rules: {
     'dot-notation': OFF,
-  }
+    '@typescript-eslint/no-misused-promises': OFF,
+    'lines-between-class-members': OFF,
+  },
+  overrides: [
+    {
+      files: '*.entity.ts',
+      rules: {
+        'import/no-cycle': OFF,
+        'no-use-before-define': OFF,
+      },
+    }
+  ],
 };

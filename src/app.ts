@@ -1,6 +1,6 @@
 import express from 'express';
 import { json, urlencoded } from 'body-parser';
-import { pingRouter, notFoundRouter } from './routers';
+import { PingRouter, NotFoundRouter, MatchRouter } from './routers';
 import { logMiddleware, errorHandlerMiddleware } from './middleware';
 
 const app = express();
@@ -11,8 +11,9 @@ app.use(urlencoded({ extended: true }));
 
 // Add your middlewares here.
 
-app.use('/ping', pingRouter);
-app.use('*', notFoundRouter);
+app.use('/ping', PingRouter);
+app.use('/match', MatchRouter);
+app.use('*', NotFoundRouter);
 
 app.use(errorHandlerMiddleware);
 

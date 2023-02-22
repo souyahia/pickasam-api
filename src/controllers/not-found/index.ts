@@ -1,1 +1,1 @@
-export * as notFoundController from './not-found.controller';
+export { NotFoundController } from './not-found.controller';
