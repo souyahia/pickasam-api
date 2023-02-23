@@ -1,1 +1,1 @@
-export * as matchValidator from './match.validator';
+export { MatchValidator } from './match.validator';

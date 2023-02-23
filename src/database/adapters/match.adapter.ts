@@ -14,7 +14,7 @@ export const MatchAdapter: MatchRepository = {
     return MatchMapper.toModel(matchEntity);
   },
 
-  async createNewMatch(): Promise<Match> {
+  async createMatch(gender: Gender): Promise<Match> {
     const [picture1, picture2] = await PictureEntity.findAll({
       order: Sequelize.literal('rand()'),
       limit: 2,
@@ -22,7 +22,7 @@ export const MatchAdapter: MatchRepository = {
 
     const match = await MatchEntity.create({
       uuid: v4(),
-      gender: Gender.UNKNOWN,
+      gender,
       winner: null,
       picture_1_id: picture1.id,
       picture_2_id: picture2.id,

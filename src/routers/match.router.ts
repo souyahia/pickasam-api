@@ -1,15 +1,20 @@
 import { Router } from 'express';
 import { MatchController } from '../controllers';
 import { asyncWrapper, paramsValidatorMiddleware } from '../middleware';
-import { matchValidator } from '../validators';
+import { MatchValidator } from '../validators';
 
 const MatchRouter = Router();
 
-MatchRouter.get('/', asyncWrapper(MatchController.getNewMatch));
+MatchRouter.post(
+  '/',
+  MatchValidator.createMatch,
+  paramsValidatorMiddleware,
+  asyncWrapper(MatchController.createMatch),
+);
 
 MatchRouter.patch(
   '/:uuid',
-  matchValidator.postMatchResultValidator,
+  MatchValidator.updateMatchResult,
   paramsValidatorMiddleware,
   asyncWrapper(MatchController.updateMatchResult),
 );

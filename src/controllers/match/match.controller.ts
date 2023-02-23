@@ -3,7 +3,8 @@ import { Match, Picture, Winner } from '../../models';
 import { MatchAdapter, PictureAdapter } from '../../database/adapters';
 import { getNextRatings } from './elo-ranking';
 import {
-  GetNewMatchResponse,
+  CreateMatchResponse,
+  CreateMatchRequestBody,
   UpdateMatchResultResponse,
   UpdateMatchResultRequestBody,
   UpdateMatchResultURLParams,
@@ -17,17 +18,17 @@ function getLooserPicture(match: Match, winner: Winner): Picture {
   return winner === 1 ? match.picture2 : match.picture1;
 }
 
-async function getNewMatch(
-  req: Request<never, GetNewMatchResponse>,
-  res: Response<GetNewMatchResponse>,
+async function createMatch(
+  req: Request<never, CreateMatchResponse, CreateMatchRequestBody>,
+  res: Response<CreateMatchResponse>,
 ): Promise<void> {
-  const match = await MatchAdapter.createNewMatch();
-  const getNewMatchResponse: GetNewMatchResponse = {
+  const match = await MatchAdapter.createMatch(req.body.gender);
+  const createMatchResponse: CreateMatchResponse = {
     uuid: match.uuid,
     picture1: { uuid: match.picture1.uuid, data: match.picture1.data },
     picture2: { uuid: match.picture2.uuid, data: match.picture2.data },
   };
-  res.status(201).json(getNewMatchResponse);
+  res.status(201).json(createMatchResponse);
 }
 
 export async function updateMatchResult(
@@ -65,6 +66,6 @@ export async function updateMatchResult(
 }
 
 export const MatchController = {
-  getNewMatch,
+  createMatch,
   updateMatchResult,
 };
