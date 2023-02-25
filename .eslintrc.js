@@ -11,6 +11,7 @@ module.exports = {
     'dot-notation': OFF,
     '@typescript-eslint/no-misused-promises': OFF,
     'lines-between-class-members': OFF,
+    'promise/catch-or-return': [ERROR, { allowFinally: true }],
   },
   overrides: [
     {
@@ -18,6 +19,12 @@ module.exports = {
       rules: {
         'import/no-cycle': OFF,
         'no-use-before-define': OFF,
+      },
+    },
+    {
+      files: 'src/scripts/*.ts',
+      rules: {
+        'import/first': OFF,
       },
     }
   ],

@@ -25,7 +25,8 @@
     "eslint": "eslint --format=pretty ./src ./test",
     "eslint:fix": "eslint --fix --format=pretty ./src ./test",
     "lint": "yarn run prettier && yarn run eslint",
-    "lint:fix": "yarn run prettier:fix && yarn run eslint:fix"
+    "lint:fix": "yarn run prettier:fix && yarn run eslint:fix",
+    "script:init-db": "node dist/scripts/init-db.js"
   },
   "prettier": "@souyahia/prettier-config",
   "dependencies": {
