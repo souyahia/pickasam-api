@@ -30,6 +30,9 @@ export enum LogStream {
 export const Config = {
   Server: {
     Port: getNumber('Server:Port'),
+    Https: getBoolean('Server:Https'),
+    SSLCertificate: getString('Server:SSLCertificate'),
+    SSLPrivateKey: getString('Server:SSLPrivateKey'),
   },
   Database: {
     Dialect: getEnum('Database:Dialect', DATABASE_DIALECT),

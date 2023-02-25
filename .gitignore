@@ -16,3 +16,5 @@ dist
 coverage
 .env
 data
+cert.pem
+key.pem

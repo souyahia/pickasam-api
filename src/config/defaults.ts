@@ -1,6 +1,9 @@
 export const defaults = {
   Server: {
+    Https: false,
     Port: 3000,
+    SSLCertificate: 'cert.pem',
+    SSLPrivateKey: 'key.pem',
   },
   Database: {
     Dialect: 'mysql',

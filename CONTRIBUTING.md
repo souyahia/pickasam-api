@@ -7,6 +7,9 @@ In order to contribute to the project, you will need to have the following tools
 - [Docker](https://docs.docker.com/engine/install/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
+## SSL Certificates
+Since
+
 ## Installation
 To install the required dependencies, simply run the following command :
 
@@ -37,6 +40,12 @@ can edit the following files :
 - `db/files` : Mounted volume containing the mock pictures
 - `db/scripts/data.sql` : Inserts rows to a database at initialization
 
+## HTTPS protocal and SSL Certificates
+If you set the `Server__Https` environment variable to `true`, the server will be listening using the secure HTTPS
+protocol. In order for this to work, you will need to provide an SSL certificate and its private key. The path to these
+files can be configured using the `Server__SSLCertificate` and `Server__SSLPrivateKey` environment variables
+respectively (see the Configuration section below).
+
 ## Start the server
 To start the server, run the following command :
 
@@ -52,20 +61,23 @@ easier to configure, `.env` file can be created at the root of the repository (i
 environment variables setups.
 
 
-| Environment Variable | Default               | Accepted Values                                                                 | Description                                                                     |
-|----------------------|-----------------------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
-| Server__Port         | `3000`                | `number`                                                                        | The listening port of the server                                                |
-| Database__Dialect    | `mysql`               | `mysql`, `postgres`, `sqlite`, `mariadb`, `mssql`, `db2`, `snowflake`, `oracle` | Database dialect for sequelize                                                  |
-| Database__Host       | `localhost`           | `string`                                                                        | Database host                                                                   |
-| Database_Database    | `pickasam`            | `string`                                                                        | SQL database to connect to                                                      |
-| Database__Username   | `user_dev`            | `string`                                                                        | Username used to connect to the database                                        |
-| Database__Password   | `password_dev`        | `string`                                                                        | Password used to connect to the database                                        |
-| Logger__Level        | `info`                | `trace`, `debug`, `info`, `warn`, `error`, `fatal`                              | Minimal level of logs to display                                                |
-| Logger__Stream       | `bunyan-debug-stream` | `stdout`, `bunyan-debug-stream`                                                 | The output stream for the logs                                                  |
-| Logger__ShowHeaders  | `false`               | `boolean`                                                                       | Show the request and response headers in the request logs (level : `info`)      |
-| Logger_ShowSQL       | `false`               | `boolean`                                                                       | Show the SQL queries in the logs (level : `trace`)                              |
-| Elo__KFactor         | `32`                  | `number`                                                                        | The K factor for the elo rating system. See the main README for more info.      |
-| Elo__ScaleFFactor    | `400`                 | `number`                                                                        | The scale factor for the elo rating system. See the main README for more info.  |
-| Elo__ExponentBase    | `10`                  | `number`                                                                        | The exponent base for the elo rating system. See the main README for more info. |
+| Environment Variable   | Default               | Accepted Values                                                                 | Description                                                                     |
+|------------------------|-----------------------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
+| Server__Port           | `3000`                | `number`                                                                        | The listening port of the server                                                |
+| Server__Https          | `false`               | `boolean`                                                                       | Boolean indicating if the server should be run using HTTPS secure protocol      |
+| Server__SSLCertificate | `cert.pem`            | `string`                                                                        | Path to the SSL certificate file (only required if using HTTPS)                 |
+| Server__SSLPrivateKey  | `key.pem`             | `string`                                                                        | Path to the SSL private key file (only required if using HTTPS)                 |
+| Database__Dialect      | `mysql`               | `mysql`, `postgres`, `sqlite`, `mariadb`, `mssql`, `db2`, `snowflake`, `oracle` | Database dialect for sequelize                                                  |
+| Database__Host         | `localhost`           | `string`                                                                        | Database host                                                                   |
+| Database_Database      | `pickasam`            | `string`                                                                        | SQL database to connect to                                                      |
+| Database__Username     | `user_dev`            | `string`                                                                        | Username used to connect to the database                                        |
+| Database__Password     | `password_dev`        | `string`                                                                        | Password used to connect to the database                                        |
+| Logger__Level          | `info`                | `trace`, `debug`, `info`, `warn`, `error`, `fatal`                              | Minimal level of logs to display                                                |
+| Logger__Stream         | `bunyan-debug-stream` | `stdout`, `bunyan-debug-stream`                                                 | The output stream for the logs                                                  |
+| Logger__ShowHeaders    | `false`               | `boolean`                                                                       | Show the request and response headers in the request logs (level : `info`)      |
+| Logger_ShowSQL         | `false`               | `boolean`                                                                       | Show the SQL queries in the logs (level : `trace`)                              |
+| Elo__KFactor           | `32`                  | `number`                                                                        | The K factor for the elo rating system. See the main README for more info.      |
+| Elo__ScaleFFactor      | `400`                 | `number`                                                                        | The scale factor for the elo rating system. See the main README for more info.  |
+| Elo__ExponentBase      | `10`                  | `number`                                                                        | The exponent base for the elo rating system. See the main README for more info. |
 
 
