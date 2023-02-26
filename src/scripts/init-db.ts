@@ -35,6 +35,10 @@ async function createPictureEntity(data: Buffer): Promise<void> {
   const pictureEntity = await PictureEntity.create({
     uuid: v4(),
     elo: 1400,
+    elo_male: 1400,
+    elo_female: 1400,
+    elo_other: 1400,
+    elo_unknown: 1400,
     data,
   });
   logger.info(`Successfully created picture #${pictureEntity.id} (${pictureEntity.uuid})`);

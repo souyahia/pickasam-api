@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import { json, urlencoded } from 'body-parser';
-import { PingRouter, NotFoundRouter, MatchRouter } from './routers';
+import { PingRouter, NotFoundRouter, MatchRouter, PictureRouter } from './routers';
 import { logMiddleware, errorHandlerMiddleware } from './middleware';
 
 const app = express();
@@ -15,6 +15,7 @@ app.use(urlencoded({ extended: true }));
 
 app.use('/ping', PingRouter);
 app.use('/match', MatchRouter);
+app.use('/pictures', PictureRouter);
 app.use('*', NotFoundRouter);
 
 app.use(errorHandlerMiddleware);

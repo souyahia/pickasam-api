@@ -7,6 +7,10 @@ class PictureEntity extends Model {
   declare id: CreationOptional<number>;
   declare uuid: string;
   declare elo: number;
+  declare elo_male: number;
+  declare elo_female: number;
+  declare elo_other: number;
+  declare elo_unknown: number;
   declare data: Buffer;
 }
 
@@ -26,6 +30,22 @@ export const PictureInitializer: EntityInitializer = {
           unique: true,
         },
         elo: {
+          type: DataTypes.INTEGER,
+          allowNull: false,
+        },
+        elo_male: {
+          type: DataTypes.INTEGER,
+          allowNull: false,
+        },
+        elo_female: {
+          type: DataTypes.INTEGER,
+          allowNull: false,
+        },
+        elo_other: {
+          type: DataTypes.INTEGER,
+          allowNull: false,
+        },
+        elo_unknown: {
           type: DataTypes.INTEGER,
           allowNull: false,
         },

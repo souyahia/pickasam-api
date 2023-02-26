@@ -1,4 +1,4 @@
-import { Sequelize } from 'sequelize';
+import { Op, Sequelize } from 'sequelize';
 import { v4 } from 'uuid';
 import { Gender, Match, Winner } from '../../models';
 import { MatchRepository } from '../../repositories';
@@ -36,5 +36,25 @@ export const MatchAdapter: MatchRepository = {
   async updateWinner(uuid: string, winner: Winner, gender: Gender): Promise<Match | null> {
     await MatchEntity.update({ winner, gender }, { where: { uuid } });
     return this.getMatchByUuid(uuid);
+  },
+
+  async getAllCompletedMatches(): Promise<Match[]> {
+    const matchEntities = await MatchEntity.findAll({
+      include: [
+        {
+          model: PictureEntity,
+          as: 'picture_1',
+          attributes: ['uuid'],
+        },
+        {
+          model: PictureEntity,
+          as: 'picture_2',
+          attributes: ['uuid'],
+        },
+      ],
+      where: { winner: { [Op.not]: null } },
+      order: [['id', 'ASC']],
+    });
+    return matchEntities.map((matchEntity) => MatchMapper.toModel(matchEntity));
   },
 };

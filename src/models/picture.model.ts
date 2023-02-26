@@ -1,5 +1,7 @@
+import { PictureElo } from './picture-elo.model';
+
 export interface Picture {
   uuid: string;
-  elo: number;
+  elo: PictureElo;
   data: Buffer;
 }

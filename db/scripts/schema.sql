@@ -2,6 +2,10 @@ CREATE TABLE Picture (
   id INT PRIMARY KEY AUTO_INCREMENT,
   uuid VARCHAR(36) NOT NULL UNIQUE,
   elo INT NOT NULL,
+  elo_male INT NOT NULL,
+  elo_female INT NOT NULL,
+  elo_other INT NOT NULL,
+  elo_unknown INT NOT NULL,
   data LONGBLOB NOT NULL
 );
 

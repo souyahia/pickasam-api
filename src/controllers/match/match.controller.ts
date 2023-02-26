@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { Match, Picture, Winner } from '../../models';
 import { MatchAdapter, PictureAdapter } from '../../database/adapters';
+import { PictureElo } from '../../models/picture-elo.model';
 import { getNextRatings } from './elo-ranking';
 import {
   CreateMatchResponse,
@@ -50,14 +51,31 @@ export async function updateMatchResult(
   const winnerPicture = getWinnerPicture(match, winner);
   const looserPicture = getLooserPicture(match, winner);
 
-  const nextRatings = getNextRatings({
-    winner: winnerPicture.elo,
-    looser: looserPicture.elo,
+  const nextAllRatings = getNextRatings({
+    winner: winnerPicture.elo.all,
+    looser: looserPicture.elo.all,
   });
 
+  const nextGenderRatings = getNextRatings({
+    winner: winnerPicture.elo[match.gender],
+    looser: looserPicture.elo[match.gender],
+  });
+
+  const nextWinnerElo: PictureElo = {
+    ...winnerPicture.elo,
+    all: nextAllRatings.winner,
+    [match.gender]: nextGenderRatings.winner,
+  };
+
+  const nextLooserElo: PictureElo = {
+    ...looserPicture.elo,
+    all: nextAllRatings.looser,
+    [match.gender]: nextGenderRatings.looser,
+  };
+
   await Promise.all([
-    await PictureAdapter.updateElo(winnerPicture.uuid, nextRatings.winner),
-    await PictureAdapter.updateElo(looserPicture.uuid, nextRatings.looser),
+    await PictureAdapter.updateElo(winnerPicture.uuid, nextWinnerElo),
+    await PictureAdapter.updateElo(looserPicture.uuid, nextLooserElo),
   ]);
 
   res.status(200).json({
