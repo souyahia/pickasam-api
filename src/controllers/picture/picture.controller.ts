@@ -44,12 +44,12 @@ async function getAllPictures(
       [match.picture1.uuid, match.picture2.uuid].includes(picture.uuid),
     );
     return {
-      // ...picture,
+      ...picture,
       uuid: picture.uuid,
       elo: picture.elo,
       stats: getPictureStats(picture.uuid, pictureMatches),
     };
-  }) as GetAllPicturesResponses;
+  });
   res.status(200).json(response);
 }
 
